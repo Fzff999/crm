@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>成都房产 CRM · 客户管理</title>
     <meta name="description" content="为成都房地产博主量身打造的迷你 CRM 系统，管理客户、跟进、楼盘。" />
-    <script type="module" crossorigin src="./assets/index-5mUGR_3g.js"></script>
+      <script>
+    // 若由 404 回退跳转而来，恢复原始路径（仅影响地址栏，不改动应用逻辑）
+    (function () {
+      try {
+        var raw = location.search.slice(1);
+        var i = raw.indexOf('redirect=');
+        if (i !== -1) {
+          var target = decodeURIComponent(raw.slice(i + 9).split('&')[0]);
+          if (target && target.charAt(0) === '/') history.replaceState(null, '', '/crm' + target);
+        }
+      } catch (e) {}
+    })();
+  </script>  <script type="module" crossorigin src="./assets/index-5mUGR_3g.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BXt2nqVX.css">
   </head>
   <body>

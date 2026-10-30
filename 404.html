@@ -1,13 +1,14 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <title>成都房产 CRM · 客户管理</title>
 <meta name="robots" content="noindex, nofollow">
 <script>
-  // SPA 回退：把 /customers/123 之类的深链接转发回 index.html，由前端路由接管
-  sessionStorage.setItem('spa-redirect', location.pathname + location.search + location.hash);
-  location.replace('/crm/');
+  // SPA 回退：GitHub Pages 对 /crm/xxx 返回本页，转发回 index.html 并把原路径交给前端路由
+  var target = location.pathname.replace(/^\/crm/, '') + location.search + location.hash;
+  if (target === '' || target === '/') target = '/';
+  location.replace('/crm/?redirect=' + encodeURIComponent(target) + location.hash);
 </script>
 </head>
 <body></body>

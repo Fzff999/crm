@@ -6,7 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>成都房产 CRM · 客户管理</title>
     <meta name="description" content="为成都房地产博主量身打造的迷你 CRM 系统，管理客户、跟进、楼盘。" />
-        <link rel="stylesheet" crossorigin href="./assets/index-BXt2nqVX.css">
+    <script>
+    /* ---- 子目录部署适配（本站部署在 /crm/ 下）---- */
+    (function () {
+      var BASE = '/crm';
+      try {
+        var raw = location.search.slice(1);
+        var i = raw.indexOf('redirect=');
+        if (i !== -1) {
+          var target = decodeURIComponent(raw.slice(i + 9).split('&')[0]);
+          if (target && target.charAt(0) === '/') history.replaceState(null, '', BASE + target);
+        }
+      } catch (e) {}
+      var hp = History.prototype;
+      var addBase = function (u) {
+        if (typeof u !== 'string') return u;
+        if (u === BASE || u.indexOf(BASE + '/') === 0) return u;
+        try {
+          var url = new URL(u, location.origin + BASE + '/');
+          var p = url.pathname;
+          if (p.indexOf(BASE + '/') !== 0 && p !== BASE) p = BASE + p;
+          return p + url.search + url.hash;
+        } catch (e) { return u; }
+      };
+      var origPush = hp.pushState, origReplace = hp.replaceState;
+      hp.pushState = function (s, t, u) { return origPush.call(this, s, t, u == null ? u : addBase(String(u))); };
+      hp.replaceState = function (s, t, u) { return origReplace.call(this, s, t, u == null ? u : addBase(String(u))); };
+      var d = Object.getOwnPropertyDescriptor(Location.prototype, 'pathname');
+      if (d && d.get && d.set) {
+        Object.defineProperty(Location.prototype, 'pathname', {
+          configurable: true,
+          get: function () { var p = d.get.call(this); return (p === BASE || p.indexOf(BASE + '/') === 0) ? (p.slice(BASE.length) || '/') : p; },
+          set: function (v) { d.set.call(this, addBase(String(v))); }
+        });
+      }
+    })();
+    </script>    <script type="module" crossorigin src="./assets/index-5mUGR_3g.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BXt2nqVX.css">
   </head>
   <body>
     <div id="root"></div>
